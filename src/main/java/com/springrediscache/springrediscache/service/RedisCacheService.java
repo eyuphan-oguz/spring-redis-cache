@@ -14,11 +14,10 @@ public class RedisCacheService {
     @Cacheable(cacheNames = "mySpecialCache")
     public String longRunningMethod() throws InterruptedException{
         Thread.sleep(5000L);
-        clearCache();
         return "method calisti";
     }
 
-    @Scheduled(fixedRate = 600)
+    @Scheduled(fixedRate = 10000)
     @CacheEvict(cacheNames="mySpecialCache",allEntries = true)
     public void clearCache()throws InterruptedException{
         System.out.println("clean cache");
