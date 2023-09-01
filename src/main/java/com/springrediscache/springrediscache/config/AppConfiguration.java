@@ -10,6 +10,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 @EnableCaching
 public class AppConfiguration {
+
+
+    
     
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(){

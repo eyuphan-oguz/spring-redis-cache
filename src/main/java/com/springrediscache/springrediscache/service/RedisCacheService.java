@@ -1,27 +1,32 @@
 package com.springrediscache.springrediscache.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RedisCacheService {
 
-    
-
+   
 
     @Cacheable(cacheNames = "mySpecialCache")
     public String longRunningMethod() throws InterruptedException{
-
         Thread.sleep(5000L);
+        clearCache();
         return "method calisti";
     }
 
-    @CacheEvict(cacheNames = "mySpecialCache")
-    public void clearCache(){
-        System.out.println("cache temizlendi");;
+    @Scheduled(fixedRate = 600)
+    @CacheEvict(cacheNames="mySpecialCache",allEntries = true)
+    public void clearCache()throws InterruptedException{
+        System.out.println("clean cache");
     }
 
+    
+
+    
 
     
 }
